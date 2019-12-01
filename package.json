@@ -1,0 +1,36 @@
+{
+  "name": "CODRematch-API",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jest.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "@types/request": "^2.48.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "key-value-replace": "^2.0.0",
+    "nodemon": "^2.0.1",
+    "request": "^2.88.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "ts-node ./server.ts && nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattyeag/CODRematch-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattyeag/CODRematch-API/issues"
+  },
+  "homepage": "https://github.com/mattyeag/CODRematch-API#readme"
+}
