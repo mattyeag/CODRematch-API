@@ -19,7 +19,7 @@ build and run server and start listening for changes.
 	"platform":"xbl"
 }```
 
-response body: ```{
+response body: ``` {
     "status": "success",
     "data": {
         "title": "mw",
