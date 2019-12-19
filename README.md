@@ -48,3 +48,17 @@ request body: ```{
 	"game":"mw",
 	"platform":"xbl"
 }```
+
+### Parameters
+##### platform: string
+xbox => 'xbl'
+PC => 'uno'
+PS4 => 'psn'
+
+##### game: string
+modern warfare => 'wm'
+black ops 4 => 'bo4'
+
+
+##### username : urlEncoded string (not case sensative)
+ex: 'mattysqueez'
