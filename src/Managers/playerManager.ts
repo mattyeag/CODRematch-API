@@ -3,7 +3,7 @@ import {PlayerParams,User} from '../utils/customTypes';
 import * as constants from '../utils/constants'; 
 import * as db from '../db/dbManager'; 
 import * as sql from '../db/queryManager';   
-import { reject, resolve } from 'bluebird';
+
     
   export const getPlayerStats = async (params:PlayerParams): Promise<any> =>{
     var options = {

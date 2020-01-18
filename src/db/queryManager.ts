@@ -1,17 +1,13 @@
-import * as sql from './repository'; 
 import * as knex from 'knex'; 
 import {User} from '../utils/customTypes';
-import { userInfo } from 'os';
+
 
 export const getUsersByEmail = (email:string) =>{
     var paramArray = []; 
     paramArray.push(email); 
-    
     var sqlString = knex("table").select().from("users").whereIn("users.email",paramArray).toString(); 
     sqlString = sanitizeSQL(sqlString); 
-    console.log("knex query: " + sqlString); 
     return sqlString; 
-    //  return replaceKey(sql.GET_USERS_SQL,'USERID:', email); 
 }
 
 
