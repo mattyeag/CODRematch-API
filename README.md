@@ -12,7 +12,7 @@ build and run server and start listening for changes.
 
 
  Use a webbrowser or postman to call the available endoints
-   #### POST `localhost:3000/public/cod/stats`
+   #### POST `/public/cod/stats`
    get your stats
    request body: ```{
 	"username":"mattysqueez",
@@ -40,7 +40,7 @@ response body: ``` {
         "lifetime": { // all stats```
 	
 	
-#### POST `localhost:3000/public/cod/friends/stats`
+#### POST `/public/cod/friends/stats`
 get stats of all your friends
 
 request body: ```{
@@ -49,16 +49,41 @@ request body: ```{
 	"platform":"xbl"
 }```
 
+
+#### POST `/rematch/get/users`
+get users by email
+
+request body: ```{
+	userEmail : "myemail@gmail.com"
+}```
+
+
+#### POST `/rematch/add/user'`
+add a user to rematch
+
+request body: 
+``` {
+        email : "myemail@gmail.com", 
+        gamerTag: "mattysqueez",
+        platform: "xbl",
+        gameCode: "mw",
+}
+```
+
+
+
 ### Parameters
 ##### platform: string
+```
 xbox => 'xbl'
 PC => 'uno'
 PS4 => 'psn'
-
+```
 ##### game: string
+```
 modern warfare => 'wm'
 black ops 4 => 'bo4'
-
+```
 
 ##### username : urlEncoded string (not case sensative)
 ex: 'mattysqueez'
