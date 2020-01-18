@@ -17,22 +17,18 @@ export const executeSelectQuery = (query : string): Promise<any> => {
                 if (err){ 
                     client.end();
                     throw err;
+                }else{
+                    client.end();
+                    console.dir("Connection closed:")
+                    resolve({status:"success", data:res.rows})
                 }
-            console.dir("Connection closed:")
-            console.dir(res.rows); 
-            if(res.rows && res.rows.length > 0){    
-                resolve({status:"success", data:res.rows})
-            }else{
-                console.log("NO DATA FOUND")
-                reject(`NO DATA FOUND`); 
-            }
             });
 
         }catch(error){
             console.error("error during db proccess: ", error);
             if(client){
                 client.end()
-            }reject("INTERNAL ERROR IN DATA CALL"); 
+            }reject({status:"error", message:error}); 
         }
 
     });
@@ -55,12 +51,11 @@ export const executeNonSelectQuery = (query : string): Promise<any> => {
                     console.log("error executing query"); 
                     client.end();
                     throw err;
+                }else{
+                    client.end()
+                    console.dir("Connection closed:")
+                    resolve({status:"success",updatedRows:res.rowCount}); 
                 }
-            console.dir("Connection closed:")
-            console.dir("rows updated: " +res.rowCount); 
-            if(res.rowCount > 0){    
-                resolve({status:"success",updatedRows:res.rowCount}); 
-            }
             });
 
         }catch(error){
