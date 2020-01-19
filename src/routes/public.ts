@@ -50,8 +50,7 @@ publicRoutes.post('/cod/friends/stats', async (req, res) =>{
             }
     }else{
         res.status(500).send("missing 'userEmail' parameter"); 
-    }
-        
+    }   
  })
 
 
