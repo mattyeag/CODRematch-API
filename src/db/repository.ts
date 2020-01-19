@@ -1,0 +1,1 @@
+export const GET_USERS_SQL = 'select * from users where email in (USERID:)'
