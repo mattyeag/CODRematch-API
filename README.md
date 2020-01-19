@@ -64,8 +64,7 @@ request body: ```{
 #### POST `/public/rematch/add/user'`
 add a user to rematch
 
-request body: 
-``` {
+request body: ``` {
         email : "myemail@gmail.com", 
         gamerTag: "mattysqueez",
         platform: "xbl",
