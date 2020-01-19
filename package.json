@@ -33,7 +33,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-dev": "nodemon ./ && ts-node ./server.ts"
+    "build-dev": "nodemon ./ && ts-node ./server.ts",
+    "start": "ts-node ./server.ts"
   },
   "repository": {
     "type": "git",
