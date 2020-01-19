@@ -15,11 +15,13 @@ export const executeSelectQuery = (query : string): Promise<any> => {
             
             client.query(query, (err, res) => {
                 if (err){ 
+                    console.log("error executing query"); 
                     client.end();
                     throw err;
                 }else{
                     client.end();
-                    console.dir("Connection closed:")
+                    console.dir("Connection closed:"); 
+                    console.log("res.rows: " + res.rows); 
                     resolve({status:"success", data:res.rows})
                 }
             });

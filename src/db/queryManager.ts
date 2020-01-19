@@ -3,10 +3,9 @@ import {User} from '../utils/customTypes';
 
 
 export const getUsersByEmail = (email:string) =>{
-    var paramArray = []; 
-    paramArray.push(email); 
+    var paramArray = email.toUpperCase().split(','); 
     var sqlString = knex("table").select().from("users").whereIn("users.email",paramArray).toString(); 
-    sqlString = sanitizeSQL(sqlString); 
+    sqlString = sanitizeSQL(sqlString);  
     return sqlString; 
 }
 
