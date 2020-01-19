@@ -13,7 +13,7 @@ build and run server and start listening for changes.
 
  Use a webbrowser or postman to call the available endoints
 
-   #### POST `localhost:3000/public/cod/stats`
+  #### POST `/public/cod/stats`
    get your stats
    request body: ```{
 	"userName":"mattysqueez",
@@ -21,7 +21,7 @@ build and run server and start listening for changes.
 	"platform":"xbl"
 }```
 
-response body: ``` {
+response body: ```{
     "status": "success",
     "data": {
         "title": "mw",
@@ -41,8 +41,8 @@ response body: ``` {
         "lifetime": { // all stats```
 	
 	
-
 #### POST `/public/cod/friends/stats`
+
 get stats of all your friends
 
 request body: ```{
@@ -50,6 +50,7 @@ request body: ```{
 	"game":"mw",
 	"platform":"xbl"
 }```
+
 
 
 #### POST `/rematch/get/users`
@@ -71,7 +72,6 @@ request body:
         gameCode: "mw",
 }
 ```
-
 
 
 ### Parameters
