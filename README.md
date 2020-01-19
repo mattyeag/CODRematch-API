@@ -53,7 +53,7 @@ request body: ```{
 
 
 
-#### POST `/rematch/get/users`
+#### POST `/public/rematch/get/users`
 get users by email
 
 request body: ```{
@@ -61,7 +61,7 @@ request body: ```{
 }```
 
 
-#### POST `/rematch/add/user'`
+#### POST `/public/rematch/add/user'`
 add a user to rematch
 
 request body: 
