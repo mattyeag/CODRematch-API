@@ -15,8 +15,8 @@ build and run server and start listening for changes.
    #### POST `localhost:3000/public/cod/stats`
    get your stats
    request body: ```{
-	"username":"mattysqueez",
-	"game":"mw",
+	"userName":"mattysqueez",
+	"gameTitle":"mw",
 	"platform":"xbl"
 }```
 
