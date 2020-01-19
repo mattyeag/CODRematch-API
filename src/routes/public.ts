@@ -1,6 +1,7 @@
 import * as player from '../Managers/playerManager'
 import * as express from 'express'; 
 import {PlayerParams,User} from '../utils/customTypes'; 
+import * as validator from '../Managers/paramValidator'; 
 
 
 export const publicRoutes = express.Router(); 
@@ -8,31 +9,39 @@ export const publicRoutes = express.Router();
 
 publicRoutes.post('/cod/stats', async (req, res) =>{
    var params : PlayerParams = {userName: req.body.userName, gameTitle: req.body.gameTitle, platform: req.body.platform  }
-   console.log(params); 
-    try{
-
-        let response = await player.getPlayerStats(params)
-            res.status(200).send(response);
-    }catch(error){
-        console.error("error calling to get player stats", error); 
-        res.status(500).send("error calling service with params: " + params); 
-    }
+   var paramErrors = validator.codStatsParamsValid(params);
+   if(paramErrors.length > 0){
+       res.status(404).send({status:"error", message:"missing or bad values for: " + paramErrors})
+   } else{
+        try{
+                let response = await player.getPlayerStats(params)
+                    res.status(200).send(response);
+            }catch(error){
+                console.error("error calling to get player stats", error); 
+                res.status(500).send("error calling service with params: " + params); 
+            }
+        }
 })
 
 publicRoutes.post('/cod/friends/stats', async (req, res) =>{
     var params : PlayerParams = {userName: req.body.userName, gameTitle: req.body.gameTitle, platform: req.body.platform  }
-     try{
-         let response = await player.getPlayersFriendsStats(params)
-             res.status(200).send(response);
-     }catch(error){
-         res.send(500).send("error while calling service with params:" + params); 
-         console.error("error calling to get player stats", error); 
-     }
+    var paramErrors = validator.codStatsParamsValid(params);
+    if(paramErrors.length > 0){
+        res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
+    } else{
+        try{
+            let response = await player.getPlayersFriendsStats(params)
+                res.status(200).send(response);
+        }catch(error){
+            res.send(500).send("error while calling service with params:" + params); 
+            console.error("error calling to get player stats", error); 
+        }
+    }
  })
  
 
  publicRoutes.post('/rematch/get/users', (req, res) =>{
-    if(req.body.userEmail){
+     if(req.body.userEmail){
     var params = req.body.userEmail
         try{ 
         player.getUsersData(params)
@@ -49,7 +58,7 @@ publicRoutes.post('/cod/friends/stats', async (req, res) =>{
                 res.status(500).send("error calling service for user: " + params);
             }
     }else{
-        res.status(500).send("missing 'userEmail' parameter"); 
+        res.status(400).send({status:"error", message:"missing or malformed parameter: 'userEmail'"}); 
     }   
  })
 
@@ -62,7 +71,10 @@ publicRoutes.post('/cod/friends/stats', async (req, res) =>{
         gameCode: req.body.game_cd,
         loginDate: new Date()
      }
-    console.dir(userParams); 
+     var paramErrors = validator.addUserParamsValid(userParams);
+    if(paramErrors.length > 0){
+        res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
+    } else{
         try{ 
         player.insertPlayer(userParams)
                 .then( (results) => {
@@ -78,7 +90,7 @@ publicRoutes.post('/cod/friends/stats', async (req, res) =>{
                 console.dir(userParams); 
                 res.sendStatus(500);
             }
-        
+    }
  })
 
 
