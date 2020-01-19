@@ -12,11 +12,12 @@ build and run server and start listening for changes.
 
 
  Use a webbrowser or postman to call the available endoints
-   #### POST `/public/cod/stats`
+
+   #### POST `localhost:3000/public/cod/stats`
    get your stats
    request body: ```{
-	"username":"mattysqueez",
-	"game":"mw",
+	"userName":"mattysqueez",
+	"gameTitle":"mw",
 	"platform":"xbl"
 }```
 
@@ -40,6 +41,7 @@ response body: ``` {
         "lifetime": { // all stats```
 	
 	
+
 #### POST `/public/cod/friends/stats`
 get stats of all your friends
 
