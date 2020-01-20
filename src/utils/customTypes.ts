@@ -6,7 +6,7 @@ export interface PlayerParams {
 }
 
 export interface User { 
-      email: string;
+      userEmail: string;
       gamerTag: string;
       platform: string;
       gameCode: string;

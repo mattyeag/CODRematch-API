@@ -17,8 +17,8 @@ return errorArray;
 
 export const addUserParamsValid = (params:User): Array<any> =>{
     var errorArray: Array<any> = []; 
-      if(!params.email){
-          errorArray.push(" email");
+      if(!params.userEmail){
+          errorArray.push(" userEmail");
       }
       if(!params.platform){
           errorArray.push(" platform");
