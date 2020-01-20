@@ -3,17 +3,19 @@ customizable matchmaking for Call of Duty
 
 
 ## To run: 
-  pull master branch. and run following commands in project directory. 
+pull master branch. and run following commands in project directory. 
 install dependencies. 
 ##### `npm install`
 build and run server and start listening for changes.
 ##### `npm run build-dev`
 
+##
+##
+##
 
 
- Use a webbrowser or postman to call the available endoints
-
-  #### POST `/public/cod/stats`
+## API
+#### POST `/public/cod/stats`
    get your stats 
    
    request body: ```{
@@ -41,7 +43,9 @@ response body: ```{
         "paragonId": 0,
         "lifetime": { // all stats```
 	
-	
+
+##
+##
 #### POST `/public/cod/friends/stats`
 
 get stats of all your friends
@@ -53,7 +57,8 @@ request body: ```{
 }```
 
 
-
+##
+##
 #### POST `/public/rematch/get/users`
 get users by email
 
@@ -62,6 +67,8 @@ request body: ```{
 }```
 
 
+##
+##
 #### POST `/public/rematch/add/user'`
 add a user to rematch
 
@@ -72,7 +79,8 @@ request body: ``` {
         gameCode: "mw",
 }```
 
-
+##
+##
 ### Parameters
 ##### platform: string
 ```
