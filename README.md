@@ -3,7 +3,7 @@ customizable matchmaking for Call of Duty
 
 
 ## To run: 
-  pull master branch. and run following commands in project directory. 
+pull master branch. and run following commands in project directory. 
 install dependencies. 
 ##### `npm install`
 build and run server and start listening for changes.
@@ -11,10 +11,11 @@ build and run server and start listening for changes.
 
 
 
- Use a webbrowser or postman to call the available endoints
 
-  #### POST `/public/cod/stats`
-   get your stats
+## API
+#### POST `/public/cod/stats`
+   get your stats 
+   
    request body: ```{
 	"userName":"mattysqueez",
 	"gameTitle":"mw",
@@ -38,18 +39,21 @@ response body: ```{
         "totalXp": 960000,
         "paragonRank": 0,
         "paragonId": 0,
-        "lifetime": { // all stats```
-	
-	
+        "lifetime": { // all stats```	
+##
+
+
+
 #### POST `/public/cod/friends/stats`
 
 get stats of all your friends
 
 request body: ```{
-	"username":"mattysqueez",
-	"game":"mw",
+	"userName":"mattysqueez",
+	"gameTitle":"mw",
 	"platform":"xbl"
 }```
+##
 
 
 
@@ -59,21 +63,27 @@ get users by email
 request body: ```{
 	userEmail : "myemail@gmail.com"
 }```
+##
+
+
+
 
 
 #### POST `/public/rematch/add/user'`
 add a user to rematch
 
 request body: ``` {
-        email : "myemail@gmail.com", 
+        userEmail : "myemail@gmail.com", 
         gamerTag: "mattysqueez",
         platform: "xbl",
         gameCode: "mw",
-}
-```
+}```
+##
 
 
-### Parameters
+
+
+## Parameters
 ##### platform: string
 ```
 xbox => 'xbl'

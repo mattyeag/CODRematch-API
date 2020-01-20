@@ -65,7 +65,7 @@ publicRoutes.post('/cod/friends/stats', async (req, res) =>{
 
  publicRoutes.post('/rematch/add/user', (req, res) =>{
      var userParams : User = {
-        email : req.body.email, 
+        userEmail : req.body.userEmail, 
         gamerTag: req.body.gamer_tag,
         platform: req.body.platform_cd,
         gameCode: req.body.game_cd,

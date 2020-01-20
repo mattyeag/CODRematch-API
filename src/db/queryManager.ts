@@ -12,7 +12,7 @@ export const getUsersByEmail = (email:string) =>{
 
 export const insertPlayer = (playerData: User) =>{
     const insertValues : any = {
-        email: playerData.email,
+        email: playerData.userEmail,
         gamer_tag: playerData.gamerTag,
         platform_cd: playerData.platform,
         game_cd: playerData.gameCode,
