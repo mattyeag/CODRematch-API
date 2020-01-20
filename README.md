@@ -9,9 +9,7 @@ install dependencies.
 build and run server and start listening for changes.
 ##### `npm run build-dev`
 
-##
-##
-##
+
 
 
 ## API
@@ -41,47 +39,51 @@ response body: ```{
         "totalXp": 960000,
         "paragonRank": 0,
         "paragonId": 0,
-        "lifetime": { // all stats```
-	
+        "lifetime": { // all stats```	
+##
 
-##
-##
+
+
 #### POST `/public/cod/friends/stats`
 
 get stats of all your friends
 
 request body: ```{
-	"username":"mattysqueez",
-	"game":"mw",
+	"userName":"mattysqueez",
+	"gameTitle":"mw",
 	"platform":"xbl"
 }```
+##
 
 
-##
-##
+
 #### POST `/public/rematch/get/users`
 get users by email
 
 request body: ```{
 	userEmail : "myemail@gmail.com"
 }```
+##
 
 
-##
-##
+
+
+
 #### POST `/public/rematch/add/user'`
 add a user to rematch
 
 request body: ``` {
-        email : "myemail@gmail.com", 
+        userEmail : "myemail@gmail.com", 
         gamerTag: "mattysqueez",
         platform: "xbl",
         gameCode: "mw",
 }```
+##
 
-##
-##
-### Parameters
+
+
+
+## Parameters
 ##### platform: string
 ```
 xbox => 'xbl'
