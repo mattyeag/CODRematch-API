@@ -14,7 +14,8 @@ build and run server and start listening for changes.
  Use a webbrowser or postman to call the available endoints
 
   #### POST `/public/cod/stats`
-   get your stats
+   get your stats 
+   
    request body: ```{
 	"userName":"mattysqueez",
 	"gameTitle":"mw",
@@ -69,8 +70,7 @@ request body: ``` {
         gamerTag: "mattysqueez",
         platform: "xbl",
         gameCode: "mw",
-}
-```
+}```
 
 
 ### Parameters
