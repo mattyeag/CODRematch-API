@@ -7,8 +7,9 @@ export interface PlayerParams {
 
 export interface User { 
       userEmail: string;
-      gamerTag: string;
-      platform: string;
-      gameCode: string;
+      userName: string;
+      firstName: string;
+      lastName: string;
+      dateOfBirth: Date;
       loginDate: Date;      
 }

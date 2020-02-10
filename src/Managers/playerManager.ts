@@ -3,7 +3,7 @@ import {PlayerParams,User} from '../utils/customTypes';
 import * as constants from '../utils/constants'; 
 import * as db from '../db/dbManager'; 
 import * as sql from '../db/queryManager';   
-
+import { reject, resolve } from 'bluebird';
     
   export const getPlayerStats = async (params:PlayerParams): Promise<any> =>{
     var options = {
@@ -33,7 +33,7 @@ import * as sql from '../db/queryManager';
 // search how to use promises in api calls properly...
     export const getUsersData = (userName : string): Promise<any> => {
         return new Promise( (resolve,reject)  => {
-         db.executeSelectQuery(sql.getUsersByEmail(userName))
+         db.executeSelectQuery(sql.getUsersByUserName(userName))
          .then(results => {
             console.log("results returned for user: " + userName); 
             resolve(results);

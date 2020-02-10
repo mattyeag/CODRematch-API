@@ -20,14 +20,20 @@ export const addUserParamsValid = (params:User): Array<any> =>{
       if(!params.userEmail){
           errorArray.push(" userEmail");
       }
-      if(!params.platform){
-          errorArray.push(" platform");
+      if(!params.userName){
+          errorArray.push(" userName");
       }
-      if(!params.gamerTag){
-          errorArray.push(" gamerTag");
+      if(!params.firstName){
+          errorArray.push(" firstName");
       }
-      if(!params.gameCode){
-          errorArray.push(" gameCode");
+      if(!params.lastName){
+          errorArray.push(" lastName");
+      }
+      if(!params.dateOfBirth){
+        errorArray.push(" dateOfBirth");
+      }
+      if(!params.lastName){
+        errorArray.push(" gameCode");
       }
   return errorArray; 
   }

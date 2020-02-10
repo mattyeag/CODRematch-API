@@ -44,7 +44,7 @@ export const executeNonSelectQuery = (query : string): Promise<any> => {
         connectionString: process.env.DATABASE_URL,
         ssl: true,
       });
-        try{
+        // try{
             client.connect();
             console.dir("connection made"); 
             
@@ -52,7 +52,7 @@ export const executeNonSelectQuery = (query : string): Promise<any> => {
                 if (err){ 
                     console.log("error executing query"); 
                     client.end();
-                    throw err;
+                    reject(err);
                 }else{
                     client.end()
                     console.dir("Connection closed:")
@@ -60,12 +60,12 @@ export const executeNonSelectQuery = (query : string): Promise<any> => {
                 }
             });
 
-        }catch(error){
-            console.error("error during db proccess: ", error);
-            if(client){
-                client.end()
-            }reject({status:"error", message:error}); 
-        }
+        // }catch(error){
+        //     console.error("error during db proccess: ", error);
+        //     if(client){
+        //         client.end()
+        //     }reject({status:"error", message:error}); 
+        // }
 
     });
 }
