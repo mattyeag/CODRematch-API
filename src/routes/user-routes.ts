@@ -1,4 +1,4 @@
-import * as player from '../Managers/playerManager'
+import * as repository from '../db/repository';
 import * as express from 'express'; 
 import {PlayerParams,User} from '../utils/customTypes'; 
 import * as validator from '../Managers/paramValidator'; 
@@ -9,7 +9,6 @@ export const userRoutes = express.Router();
 /*
 TODO: move COD services to another route or create a separate gamesAPI for calling game related API's
 */
-
 
 
 // userRoutes.post('/cod/stats', async (req, res) =>{
@@ -48,7 +47,7 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
  userRoutes.post('/user/get', (req, res) =>{
      if(req.body.userName){
     var params = req.body.userName
-        player.getUsersData(params)
+        repository.getUsersData(params)
                 .then( (results) => {
                     res.status(200).send(results);
                 })
@@ -64,25 +63,26 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
 
 
  userRoutes.post('/user/add', (req, res) =>{
-    let useremail = req.body.userEmail.toLowerCase()
-    let username= req.body.userName.toLowerCase()
-    let firstname= req.body.firstName.toLowerCase()
-    let lastname= req.body.lastName.toLowerCase()
-
-    var userParams : User = {
-        userEmail : useremail,  
-        userName: username,
-        firstName: firstname, 
-        lastName: lastname, 
-        dateOfBirth: req.body.dateOfBirth,
-        loginDate: new Date()
-     }
-
-     var paramErrors = validator.addUserParamsValid(userParams);
+    var paramErrors = validator.addUserParamsValid(req.body);
     if(paramErrors.length > 0){
         res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
     } else{
-        player.insertPlayer(userParams)
+        let useremail = req.body.userEmail.toLowerCase()
+        let username= req.body.userName.toLowerCase()
+        let firstname= req.body.firstName.toLowerCase()
+        let lastname= req.body.lastName.toLowerCase()
+       
+        var userParams : User = {
+            userEmail : useremail,  
+            userName: username,
+            displayName: req.body.userName,
+            firstName: firstname, 
+            lastName: lastname, 
+            dateOfBirth: req.body.dateOfBirth,
+            key: req.body.key,
+            loginDate: new Date()
+     }
+        repository.insertUser(userParams)
                 .then( (results) => {
                     console.log("results found, resolving request**");
                     res.send(results);

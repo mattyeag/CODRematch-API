@@ -16,6 +16,7 @@ return errorArray;
 
 
 export const addUserParamsValid = (params:User): Array<any> =>{
+   
     var errorArray: Array<any> = []; 
       if(!params.userEmail){
           errorArray.push(" userEmail");
@@ -35,5 +36,9 @@ export const addUserParamsValid = (params:User): Array<any> =>{
       if(!params.lastName){
         errorArray.push(" gameCode");
       }
+      if(!params.key){
+        errorArray.push(" key");
+      }
+
   return errorArray; 
   }
