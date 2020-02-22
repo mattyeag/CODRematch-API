@@ -1,4 +1,5 @@
-import {PlayerParams,User} from '../utils/customTypes'; 
+import {PlayerParams,User, UserLoginInput,Player} from '../utils/customTypes'; 
+import { request } from 'https';
 
 export const codStatsParamsValid = (params:PlayerParams): Array<any> =>{
   var errorArray: Array<any> = []; 
@@ -41,4 +42,33 @@ export const addUserParamsValid = (params:User): Array<any> =>{
       }
 
   return errorArray; 
+  }
+
+
+  export const loginParamasValidate = (params:UserLoginInput): Array<string> =>{
+    let paramErrors: Array<string> = [];
+    if(!params.username){
+        paramErrors.push(' :username');
+     }
+     if(!params.password){
+        paramErrors.push(' :password');
+     }
+     return paramErrors; 
+  }
+
+  export const createPlayerValidate = (params: Player):Array<string> =>{
+    let paramErrors: Array<string> = [];
+    if(!params.user_id){
+        paramErrors.push(':user_id')
+    }
+    if(!params.player_tag){
+        paramErrors.push(':player_tag')
+    }
+    if(!params.game_id){
+        paramErrors.push(':game_id')
+    }
+    if(!params.platform_id){
+        paramErrors.push(':platform_id')
+    }
+    return paramErrors;
   }

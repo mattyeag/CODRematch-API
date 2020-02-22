@@ -49,12 +49,12 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
     var params = req.body.userName
         repository.getUsersData(params)
                 .then( (results) => {
-                    res.status(200).send(results);
+                    res.status(200).send({status:'success', data: results});
                 })
                 .catch(err => { 
                     console.log("error getting data for user: " + params); 
                     console.error(err); 
-                    res.status(500).send({status:"Error", error: err}); 
+                    res.status(500).send({status:"error", error: err}); 
                 }) 
     }else {
         res.status(400).send({status:"error", message:"missing or malformed parameter: 'userEmail'"}); 
@@ -84,16 +84,17 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
      }
         repository.insertUser(userParams)
                 .then( (results) => {
-                    console.log("results found, resolving request**");
-                    res.send(results);
+                    if(results){
+                        res.status(200).send({status:'success'});
+                    }
                 })
                 .catch(err => { 
-                    let errMessage = ""
+                    console.log("*** CATCH ERRORL: " + JSON.stringify(err)); 
+                    let errMessage;
                     if(JSON.stringify(err).includes('already exists')){
                         errMessage = `user ${username} already exists`
                     }
-                    console.log("error getting data for user: " + userParams); 
-                    console.error(err); 
+                    console.error("error adding user: " + err); 
                     res.status(500).send({status:"Error", message: errMessage, error: err}); 
                 }) 
     }

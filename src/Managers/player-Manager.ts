@@ -1,9 +1,10 @@
 import * as requestPromise from 'request-promise';
-import {PlayerParams,User} from '../utils/customTypes';  
+import {PlayerParams,User, Player} from '../utils/customTypes';  
 import * as constants from '../utils/constants'; 
 import * as db from '../db/dbManager'; 
-import * as sql from '../db/repository';   
-import { reject, resolve } from 'bluebird';
+import * as repository from '../db/repository';   
+import { reject } from 'bluebird';
+
     
 /*
 TODO: move COD API CALLS to differnt API for game apis
@@ -44,4 +45,18 @@ TODO: move COD API CALLS to differnt API for game apis
     // }
     
 
-
+export const createPlayer = (playerData: Player):Promise<any> =>{
+  return new Promise((res,rej) =>{
+    repository.insertPlayer(playerData).then((response : Array<Player>) =>{
+        console.log("response in createPlayer())")   
+        res(response);
+        }).catch((error) =>{
+            let errorString = error.toString();
+            console.log("createPlayer errorString: " , errorString)
+            if(errorString.includes('violates unique constraint "players_pkey"')){
+                rej(`player already exists for gamer ${playerData.player_tag}`)
+            }
+            rej(error);
+        })
+    })
+}
