@@ -1,7 +1,7 @@
 import * as express from 'express'; 
-import {UserAuthObj, UserLoginInput,Player} from '../utils/customTypes'
+import {Player} from '../utils/customTypes'
 import * as validator from '../Managers/paramValidator'
-import * as playerManager from '../Managers/player-manager'
+import * as playerManager from '../Managers/player-Manager'
 
 export const playerRoutes = express.Router(); 
 
