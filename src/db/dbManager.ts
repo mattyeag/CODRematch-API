@@ -44,17 +44,21 @@ export const executeNonSelectQuery = (query : string): Promise<any> => {
       });
         try{
          await client.connect();
-            console.dir("connection made"); 
+            console.log("connection made"); 
          await client.query(query, (err, response) => {
                 if (err){ 
-                    console.log("error executing query"); 
+                    console.error("error executing query"); 
                     client.end();
-                    console.log("db error: " , err.toString())
+                    console.error("db error: " , err.toString())
                     reject(err);
                 }else{
                     client.end()
                     console.dir("Connection closed:")
-                    resolve(response.rowCount); 
+                    if(response.rows.length > 0){
+                        resolve(response.rows); 
+                    }else{
+                        resolve(response.rowCount)
+                    }
                 }
             });
         }catch(error){
@@ -76,6 +80,7 @@ export const addNewUserAndAuth =  (newUserQuery:string, newAuthQuery:string, use
       });
       client.connect();
         try{
+            let insertUserResponse;
             console.dir("connection made"); 
             await client.query(`Select count(*) from users where email = '${userEmail}'`)
             .then(results =>{ 
@@ -85,11 +90,13 @@ export const addNewUserAndAuth =  (newUserQuery:string, newAuthQuery:string, use
            }).catch(err =>{throw err})
            await client.query('BEGIN')
            await client.query(newAuthQuery); 
-           await client.query(newUserQuery);
+           await client.query(newUserQuery).then((response) =>{insertUserResponse = response.rows});
            await client.query('COMMIT')
             client.end()
             console.dir("Connection closed:")
-            resolve(true); 
+            if(insertUserResponse){
+                resolve(insertUserResponse); 
+            }else{ resolve(true)}
         }catch(error){
             let errorMessage = error.toString()
             if(client){

@@ -42,3 +42,22 @@ export interface Player {
     player_pass: string;
     team_id: string;
 }
+
+
+export interface Team {
+    teamName: string;
+    gameId: string;
+    ownerUserId: string;
+    activeStatus?: string;
+    platformTitle: string;
+    imageLink: string; 
+}
+
+
+export interface TeamMemberStatus{
+    teamName: string;
+    userId:string;
+    status?: 'INVITE' | 'OWNER' | 'ACTIVE' | 'CLOSED'
+    senderUserId:string;
+    inviteKey?:string
+}

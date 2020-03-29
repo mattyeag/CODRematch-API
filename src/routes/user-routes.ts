@@ -2,7 +2,7 @@ import * as repository from '../db/repository';
 import * as express from 'express'; 
 import {PlayerParams,User} from '../utils/customTypes'; 
 import * as validator from '../Managers/paramValidator'; 
-
+import * as teams from '../Managers/team-Manager';
 
 export const userRoutes = express.Router(); 
 
@@ -45,6 +45,7 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
  
 
  userRoutes.post('/user/get', (req, res) =>{
+     console.log("in /user/get"); 
      if(req.body.userName){
     var params = req.body.userName
         repository.getUsersData(params)
@@ -62,7 +63,7 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
  })
 
 
- userRoutes.post('/user/add', (req, res) =>{
+ userRoutes.post('/user/add', (req, res) => {
     var paramErrors = validator.addUserParamsValid(req.body);
     if(paramErrors.length > 0){
         res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
@@ -84,21 +85,52 @@ TODO: move COD services to another route or create a separate gamesAPI for calli
      }
         repository.insertUser(userParams)
                 .then( (results) => {
-                    if(results){
-                        res.status(200).send({status:'success'});
-                    }
+                    res.status(200).send({status:'success', data:results});
                 })
-                .catch(err => { 
+                .catch( (err) => { 
                     console.log("*** CATCH ERRORL: " + JSON.stringify(err)); 
                     let errMessage;
                     if(JSON.stringify(err).includes('already exists')){
                         errMessage = `user ${username} already exists`
                     }
-                    console.error("error adding user: " + err); 
-                    res.status(500).send({status:"Error", message: errMessage, error: err}); 
-                }) 
-    }
- })
+                    let errorString = `Error adding user: ${err}`
+                    res.status(500).send({status:"Error", message: errMessage, error: errorString}); 
+                }); 
+            }
+        })
 
+            
+    userRoutes.post('/team/create', (req, res) =>{
+        console.log("creating team.."); 
+        var paramErrors = validator.addTeamValidateParams(req.body);
+        if(paramErrors.length > 0){
+            res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
+        } else{
+            teams.createTeam(req.body).then((response) => {
+                res.status(200).send({status:'success', data:response});
+            }).catch( (error) => {
+               let errorString = `Error creating invite: ${error}`
+                console.error(errorString); 
+                res.status(500).send({status:'error', message:errorString})
+            }); 
+        }
+    })
+
+
+    userRoutes.post('/team/invite', (req, res) =>{
+        console.log("invite player.."); 
+        var paramErrors = validator.teamMemberStatusParams(req.body);
+        if(paramErrors.length > 0){
+            res.status(404).send({status:"error", message:"missing or malformed parameters: " + paramErrors})
+        } else{
+            teams.updateTeamMemberStatus(req.body).then((response) => {
+                res.status(200).send({status:'success', data:response});
+            }).catch( (error) => {
+                let errorString = `Error creating invite: ${error}`
+                console.error(errorString); 
+                res.status(500).send({status:'error', message:errorString})
+            }); 
+        }
+    })
 
  

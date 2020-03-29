@@ -1,4 +1,4 @@
-import {PlayerParams,User, UserLoginInput,Player} from '../utils/customTypes'; 
+import {PlayerParams,User, UserLoginInput,Player, Team, TeamMemberStatus} from '../utils/customTypes'; 
 import { request } from 'https';
 
 export const codStatsParamsValid = (params:PlayerParams): Array<any> =>{
@@ -45,6 +45,24 @@ export const addUserParamsValid = (params:User): Array<any> =>{
   }
 
 
+
+  export const addTeamValidateParams = (params:Team): Array<any> =>{
+    var errorArray: Array<any> = []; 
+      if(!params.ownerUserId){
+          errorArray.push(" ownerUserId");
+      }
+      if(!params.platformTitle){
+          errorArray.push(" platformTitle");
+      }
+      if(!params.teamName){
+          errorArray.push(" teamName");
+      }
+      if(!params.gameId){
+        errorArray.push(" gameId");
+    }
+  return errorArray; 
+  }
+
   export const loginParamasValidate = (params:UserLoginInput): Array<string> =>{
     let paramErrors: Array<string> = [];
     if(!params.username){
@@ -69,6 +87,24 @@ export const addUserParamsValid = (params:User): Array<any> =>{
     }
     if(!params.platform_id){
         paramErrors.push(':platform_id')
+    }
+    return paramErrors;
+  }
+
+
+  export const teamMemberStatusParams = (params: TeamMemberStatus):Array<string> =>{
+    let paramErrors: Array<string> = [];
+    if(!params.teamName){
+        paramErrors.push(':teamName')
+    }
+    if(!params.userId){
+        paramErrors.push(':userId')
+    }
+    if(!params.status){
+        paramErrors.push(':status')
+    }
+    if(!params.senderUserId){
+        paramErrors.push(':senderUserId')
     }
     return paramErrors;
   }

@@ -17,7 +17,7 @@ dotenv.config();
 export const app = express()
 app.use(bodyParser.json()); 
 
-app.use('/myeteam', userRoutes); 
-app.use('/user', authRoutes)
-app.use('/player', playerRoutes)
+app.use('/myeteam',userRoutes); 
+app.use('/user', authRoutes);
+app.use('/player', playerRoutes);
 app.use('/health', (err,res)=>{console.log("app is healthy"); res.sendStatus(200)})

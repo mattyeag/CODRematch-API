@@ -1,5 +1,5 @@
 import * as knex from 'knex'; 
-import {User,insertQueryObject, UserLoginInput,Player} from '../utils/customTypes';
+import {User,insertQueryObject, Team,Player, TeamMemberStatus} from '../utils/customTypes';
 import * as db from './dbManager'; 
 import { reject } from 'bluebird';
 
@@ -68,7 +68,8 @@ export const createInsertUserSql = (userData: User): insertQueryObject =>{
         username: userData.userName,
         private_key: userData.key,
     } 
-    let inserterUserSql = sanitizeSQL(knex("table").table('USERS').insert(userValues).toString()); 
+    let returnedColumns = 'RETURNING "user_id", "email","username","display_name"';
+    let inserterUserSql = sanitizeSQL(knex("table").table('USERS').insert(userValues).toString()) + sanitizeSQL(returnedColumns); 
     let insertAuthSql = sanitizeSQL(knex("table").table('USER_AUTH').insert(authValues).toString()); 
     return {insertUserSql: inserterUserSql, insertAuthSql: insertAuthSql}
 }
@@ -84,12 +85,57 @@ export const insertPlayer = (playerData: Player): Promise<any> => {
             player_pass : playerData.player_pass || null,
             team_id : playerData.team_id || null,
         }
-        let insertPlayerSQL = sanitizeSQL(knex('table').table('PLAYERS').insert(playerValues).toString())
+        let returnColumns = 'RETURNING user_id, player_tag, game_id, platform_id'
+        let insertPlayerSQL = sanitizeSQL(knex('table').table('PLAYERS').insert(playerValues).toString()) + returnColumns
         db.executeNonSelectQuery(insertPlayerSQL).then((response: Array<Player>) =>{
-           console.log("response in insertPlayer())")
             res(response);
         }).catch((error) =>{
-            console.log("error in insertPlayer())")
+            rej(error)
+        })
+    })
+}
+
+export const insertTeam = (teamData: Team): Promise<any> => {
+    return new  Promise((res,rej) => {
+        let team_name = teamData.teamName.toLowerCase();
+        const teamParams = {
+            team_display_name: teamData.teamName,
+            team_name: team_name,
+            game_id: teamData.gameId,
+            owner_user_id: teamData.ownerUserId,
+            platform_title: teamData.platformTitle,
+            image_link: teamData.imageLink || null
+        }
+
+        let returnColumns = 'RETURNING team_display_name, team_name, game_id, owner_user_id, platform_title, image_link'
+        let insertPlayerSQL = sanitizeSQL(knex('table').table('TEAMS').insert(teamParams).toString()) + returnColumns
+        db.executeNonSelectQuery(insertPlayerSQL).then((response: Array<Player>) =>{
+            res(response);
+        }).catch((error) =>{
+            rej(error)
+        })
+    })
+}
+
+
+
+export const updateTeamMemberStatus = (teamInvite: TeamMemberStatus): Promise<any> => {
+    console.log("updateing team member status")
+    return new  Promise((res,rej) => { 
+            const inviteParams = {
+                team_name: teamInvite.teamName, 
+                user_id: Number(teamInvite.userId) || null,
+                status: teamInvite.status,
+                sender_user_id: Number(teamInvite.senderUserId),
+                invite_key: teamInvite.inviteKey || null,
+            }
+
+
+        let returnColumns = 'RETURNING team_name, user_id, status, sender_user_id, invite_key';
+        let insertPlayerSQL = sanitizeSQL(knex('table').table('team_member_status').insert(inviteParams).toString()) + returnColumns
+        db.executeNonSelectQuery(insertPlayerSQL).then((response: Array<Player>) =>{
+            res(response);
+        }).catch((error) =>{
             rej(error)
         })
     })
