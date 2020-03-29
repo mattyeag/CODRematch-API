@@ -1,6 +1,7 @@
 import * as express from 'express'; 
-import {publicRoutes} from './src/routes/public'
-import {privateRoutes} from './src/routes/private'
+import {userRoutes} from './src/routes/user-routes'
+import {authRoutes} from './src/routes/auth-routes'
+import {playerRoutes} from './src/routes/player-routes'
 import * as bodyParser from 'body-parser'; 
 import * as dotenv from 'dotenv'; 
 const cron = require('node-cron');
@@ -16,6 +17,7 @@ dotenv.config();
 export const app = express()
 app.use(bodyParser.json()); 
 
-app.use('/public', publicRoutes); 
-app.use('/private', privateRoutes);  
+app.use('/myeteam',userRoutes); 
+app.use('/user', authRoutes);
+app.use('/player', playerRoutes);
 app.use('/health', (err,res)=>{console.log("app is healthy"); res.sendStatus(200)})
