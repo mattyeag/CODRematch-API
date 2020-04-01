@@ -1,3 +1,5 @@
+Disclaimer: this api is viewable for people to share ideas and coolaborate. Project is still in process and prone to change at any time. Thanks!
+
 ## CODRematch-API
 customizable matchmaking for Call of Duty 
 
